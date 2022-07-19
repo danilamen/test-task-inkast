@@ -1,30 +1,72 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <div class="container">
+    <Post placeholder="Type something about yours..." class="app__post">
+      <template #footer>
+        <div class="post__footer footer-post">
+          <div class="footer-post__right">
+            <CustomInput type="file" class="footer-post__action"
+              ><ImageIcon
+            /></CustomInput>
+            <CustomInput type="hidden" class="footer-post__action"
+              ><EmojisIcon
+            /></CustomInput>
+          </div>
+          <PostButton
+            className="footer-post__btn"
+            @click="onSubmit"
+            text="Post"
+          />
+        </div>
+      </template>
+    </Post>
+  </div>
 </template>
 
+<script lang="ts" setup>
+import Post from "./components/Post.vue";
+import ImageIcon from "./components/icons/ImageIcon.vue";
+import EmojisIcon from "./components/icons/EmojisIcon.vue";
+import PostButton from "./components/PostButton.vue";
+import CustomInput from "./components/CustomInput.vue";
+
+const onSubmit = () => {
+  console.log("submit");
+};
+</script>
+
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+.container {
+  max-width: 768px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  overflow-y: scroll;
 }
 
-nav {
-  padding: 30px;
+.app__post:not(:last-child) {
+  margin-bottom: 30px;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+.post__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.footer-post__right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-post__action:not(:last-child) {
+  margin-right: em(15);
+}
+
+.footer-post__btn {
+  --font-size: 20px;
 }
 </style>
